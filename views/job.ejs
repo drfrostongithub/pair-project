@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include ('./partials/head.ejs')%>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% dataJob.forEach((elem)=>{%>
+                <tr>
+                    <td><%= elem.name%></td>
+                    <td><%= elem.description%></td>
+                </tr>
+                <button type="submit" value="Save" style="color: white; background-color: blue;">Tambahkan</button>
+
+            <%}) %>
+        </tbody>
+</table>
+</body>
+
+</html>
