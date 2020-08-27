@@ -38,8 +38,8 @@ module.exports = (sequelize, DataTypes) => {
     gender: {
       type: DataTypes.STRING,
       validate: {
-        notEmpty: {
-          args: true,
+        allowNull: {
+          args: false,
           msg: "Tidak boleh kosong !"
         }
       }
