@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
-const port = 3096
+const port = 3045
+
+
 const routes = require('./routes')
 const session = require('express-session');
 

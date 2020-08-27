@@ -28,21 +28,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     last_name: {
       type: DataTypes.STRING,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: "Tidak boleh kosong !"
-        }
-      }
     },
     gender: {
       type: DataTypes.STRING,
-      validate: {
-        allowNull: {
-          args: false,
-          msg: "Tidak boleh kosong !"
-        }
-      }
     },
     date_birth: {
       type: DataTypes.STRING,
@@ -68,6 +56,13 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Profile',
+    hooks:{
+      beforeCreate(instance , options){
+        if(!instance.last_name){
+          instance.last_name = instance.first_name
+        }
+      }
+    }
   });
   return Profile;
 };

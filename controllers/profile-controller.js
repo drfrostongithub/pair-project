@@ -38,17 +38,19 @@ class ProfileController{
             dataProfile.image = null
         }
          
-
+        console.log(dataProfile)
+        console.log(login)
         //Create profile menggunakan data yang sudah ditambahkan
         Profile.create(dataProfile)
             .then(data=>{
 
                 login.ProfileId = data.id
-        
+                console.log(login)
                 //Create table login menggunakan data yang sudah ada Profile id
                 return Login.create(login)
             })
             .then(data=>{
+                
                 res.redirect('/profiles')
             })
             .catch(err=>{
