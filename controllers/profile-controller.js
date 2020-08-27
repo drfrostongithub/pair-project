@@ -98,8 +98,8 @@ class ProfileController{
         let name = req.query.sortname
         let experience = req.query.sortexperience
         let salary = req.query.sortsalary
-        
-        console.log(name)
+
+
         Profile.findAll({
             where:{
                 status : 'On Process'
@@ -120,7 +120,6 @@ class ProfileController{
             res.send(err)
         })
     }
-
 }
 
 module.exports = ProfileController
