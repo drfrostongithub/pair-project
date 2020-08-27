@@ -18,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   ProfileJob.init({
     ProfileId: DataTypes.INTEGER,
-    JobId: DataTypes.INTEGER
+    JobId: DataTypes.INTEGER,
+    status : DataTypes.STRING
   }, {
     sequelize,
     modelName: 'ProfileJob',

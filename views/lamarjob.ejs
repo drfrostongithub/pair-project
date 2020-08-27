@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lamar Job</title>
+</head>
+<body>
+    <h1>Lamar Job</h1>
+    <form action="/jobs/<%=id%>/lamar" method="post">
+        <label for="job">Job yang akan dilamar</label>
+        <select name="JobId" id="job">
+            <%for(let i = 0 ; i < data.length ; i++){%>
+                <option value="<%=data[i].id%>"> <%=data[i].name%></option>
+            <%}%>
+        </select>
+        <input type="submit" value="Lamar Job">
+    </form>
+</body>
+</html>

@@ -1,4 +1,5 @@
 const {Profile , Login , Job , ProfileJob} = require('../models')
+const session = require('express-session');
 
 class ProfileController{
 
@@ -58,20 +59,25 @@ class ProfileController{
 
     // Mengambil data Profile yang akan di edit
     static getEditProfile(req , res){
-        let idProfile = req.params.id
+         if(req.session.isLoggedIn === true){
+            let idProfile = req.params.id
         
-        Profile.findOne({
-            where:{
-                id:idProfile
-            }
-        })
-        .then(data=>{
-            //mengarahkan data ke edit profile
-            res.render('profile-edit' , {dataFeature:data})
-        })
-        .catch(err=>{
-            res.send(err)
-        })
+            Profile.findOne({
+                where:{
+                    id:idProfile
+                }
+            })
+            .then(data=>{
+                //mengarahkan data ke edit profile
+                res.render('profile-edit' , {dataFeature:data})
+            })
+            .catch(err=>{
+                res.send(err)
+            })
+         }else{
+             res.redirect('/?err=true')
+         }
+        
     }
 
 
@@ -87,7 +93,7 @@ class ProfileController{
             }
         })
         .then(data=>{
-            res.redirect('/profile')
+            res.redirect('/profiles')
         })
         .catch(err=>{
             res.send(err)
@@ -95,43 +101,75 @@ class ProfileController{
     }
 
     static listProfile(req , res){
-        let name = req.query.first_name
-        let experience = req.query.experience
-        let salary = req.query.current_salary
+        if(req.session.isLoggedIn === true){
+            if(req.session.role === true){
+                let name = req.query.sortname
+                let experience = req.query.sortexperience
+                let salary = req.query.sortsalary
+                
+                if(!name){
+                    name = 'ASC'
+                }
         
-        if(!name){
-            name = 'ASC'
+                if(!experience){
+                    experience = 'ASC'
+                }
+        
+                if(!salary){
+                    salary = 'ASC'
+                }
+        
+                Profile.findAll({
+                    where:{
+                        status : 'On Process'
+                    },include : [Job],
+                    order:[['first_name' , `${name}`],
+                    ['year_of_experience' , `${experience}`],
+                    ['month_of_experience' , `${experience}`],
+                    ['expected_salary' , `${salary}`]]
+                })
+                .then(data=>{
+                    console.log(data[0].Jobs)
+                    data.forEach(el=>{
+                        el.pengalaman = `${el.year_of_experience} tahun ${el.month_of_experience} bulan`
+                    })
+        
+                    res.render('profile' , {dataFeature:data})
+                })
+                .catch(err=>{
+                    res.send(err)
+                })
+            }else{
+                res.send('Tidak memiliki akses')
+            }
+            
+        }else{
+            res.redirect('/?err=true')
         }
+        
+    }
 
-        if(!experience){
-            experience = 'ASC'
-        }
+    static myProfile(req , res){
 
-        if(!salary){
-            salary = 'ASC'
-        }
+        let username = req.query.user
+        let profileId = req.query.profile
 
-        console.log(name)
-        Profile.findAll({
-            where:{
-                status : 'On Process'
-            },
-            order:[['first_name' , `${name}`],
-            ['year_of_experience' , `${experience}`],
-            ['month_of_experience' , `${experience}`],
-            ['expected_salary' , `${salary}`]]
+        Profile.findOne({
+            where : {
+                id : profileId
+            },include:[ Job ]
         })
         .then(data=>{
-            data.forEach(el=>{
-                el.pengalaman = `${el.year_of_experience} tahun ${el.month_of_experience} bulan`
-            })
-
-            res.render('profile' , {dataFeature:data})
+            console.log(data.Jobs[0].ProfileJob)
+            res.render('myprofile' , {username:username , data})
         })
         .catch(err=>{
-            res.send(err)
+            res.send(`gabisa kebaca`)
         })
+        
     }
+
+
 }
 
 module.exports = ProfileController

@@ -1,27 +1,46 @@
 const {Profile , Login , Job , ProfileJob} = require('../models')
+const session = require('express-session');
 
 class JobController{
 
     // yang akan menampilkan list Job dengan isTrue = true
     static listJob(req , res){
-
-        Job.findAll({
-            where:{
-                isTrue : true
-            }
-        })
-            .then(data=>{
-                res.render('job' , {dataFeature:data})
+        if(req.session.isLoggedIn === true){
+            Job.findAll({
+                where:{
+                    isTrue : true
+                }
             })
-            .catch(err=>{
-                res.send(err)
-            })
+                .then(data=>{
+                    if(req.session.role === false){
+                        res.render('jobapplicants' , {dataFeature:data})
+                    }  else{
+                        res.render('job' , {dataFeature:data})
+                    } 
+                    
+                })
+                .catch(err=>{
+                    res.send(err)
+                })
+        }else{
+            res.redirect('/?err=true')
+        }
+        
 
     }
 
     //get Add Job (Untuk pindah ke halaman form job dan menambahkan job)
     static getAddJob(req , res){
-        res.render('form-job')
+        if(req.session.isLoggedIn === true){
+            if(req.session.role === false){
+                res.send('Mohon maaf tidak diberikan akses')
+            }else{
+                res.render('form-job')
+            }
+        }else{
+            res.redirect('/?err=true')
+        }
+        
     }
 
 
@@ -48,21 +67,29 @@ class JobController{
 
     //get Edit job
     static getEditJob(req , res){
-        let idJob = req.params.id
-        
-        // Search data Job yang akan di edit
-        Job.findOne({
-            where :{
-                id:idJob
+        if(req.session.isLoggedIn === true){
+            if(req.session.role === false){
+                res.send('Mohon maaf tidak diberikan akses')
+            }else{
+                let idJob = req.params.id
+            
+                // Search data Job yang akan di edit
+                Job.findOne({
+                    where :{
+                        id:idJob
+                    }
+                })
+                .then(data=>{
+                    console.log(data)
+                    res.render('job-edit' , {data})
+                })
+                .catch(err=>{
+                    res.send(err)
+                })
             }
-        })
-        .then(data=>{
-            console.log(data)
-            res.render('job-edit' , {data})
-        })
-        .catch(err=>{
-            res.send(err)
-        })
+        }else{
+            res.redirect('/?err=true')
+        }    
     }
 
     //posting form Edit job
@@ -87,17 +114,63 @@ class JobController{
     }
 
     static getDeleteJob(req,res){
-        let deleteId = req.params.id
-
-        Job.destroy({ where: { id: deleteId}})
-        .then (()=>{
-            return res.redirect(`/jobs`)
-        })
-        .catch((err)=>{
-            return res.send(err)
-        })
+        if(req.session.isLoggedIn === true){
+            if(req.session.role === false){
+                res.send('Mohon maaf tidak diberikan akses')
+            }else{
+                let deleteId = req.params.id
+    
+                Job.destroy({ where: { id: deleteId}})
+                .then (()=>{
+                    return res.redirect(`/jobs`)
+                })
+                .catch((err)=>{
+                    return res.send(err)
+                })
+            }
+        }else{
+            res.redirect('/?err=true')
+        }
     }
 
+    static lamarJob(req , res){
+        if(req.session.isLoggedIn === true){
+
+            let id = req.params.id
+
+            Job.findAll()
+            .then(data=>{
+                res.render('lamarjob' , {data , id : id})
+            })
+            .catch(err=>{
+                res.send(err)
+            })
+        }else{
+            res.redirect('/?err=true')
+        }
+    }
+
+    static postLamarJob(req , res){
+        let data = req.body
+        let idProfile = req.params.id
+
+        let dataLamaran = {
+            ProfileId : idProfile,
+            JobId : data.JobId,
+            status : 'On Process',
+            createdAt : new Date(),
+            updatedAt : new Date()
+        }
+        
+
+        ProfileJob.create(dataLamaran)
+            .then(data=>{
+                res.redirect(`/profiles/myprofile?user=${req.session.username}&profile=${req.session.profileid}`)
+            })
+            .catch(err=>{
+                res.send(err)
+            })
+    }
 }
 
 module.exports = JobController

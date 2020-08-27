@@ -8,5 +8,5 @@ router.get('/add' , ProfileController.getAddProfile)
 router.post('/add' , ProfileController.postAddProfile)
 router.get('/:id/edit' , ProfileController.getEditProfile)
 router.post('/:id/edit' , ProfileController.postEditProfile)
-
+router.get('/myprofile' , ProfileController.myProfile)
 module.exports = router
