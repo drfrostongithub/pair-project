@@ -86,6 +86,18 @@ class JobController{
         })   
     }
 
+    static getDeleteJob(req,res){
+        let deleteId = req.params.id
+
+        Job.destroy({ where: { id: deleteId}})
+        .then (()=>{
+            return res.redirect(`/jobs`)
+        })
+        .catch((err)=>{
+            return res.send(err)
+        })
+    }
+
 }
 
 module.exports = JobController
