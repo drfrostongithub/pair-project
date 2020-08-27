@@ -9,6 +9,4 @@ router.post('/add' , ProfileController.postAddProfile)
 router.get('/:id/edit' , ProfileController.getEditProfile)
 router.post('/:id/edit' , ProfileController.postEditProfile)
 
-
-
 module.exports = router
