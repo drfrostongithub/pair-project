@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/jobs/<%=data.id%>/edit" method="post">
+    <label for="name">Job Name</label>
+    <input type="text" name="name" id="name" value="<%=data.name%>"><br>
+    <label for="description">Description</label>
+    <textarea name="description" id="description" cols="30" rows="10" ><%=data.description%></textarea><br>
+    <input type="submit" value="Edit Job">
+    </form>
+</body>
+</html>

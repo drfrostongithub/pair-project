@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Profile.hasMany(models.Job)
+      // Profile.hasMany(models.Job)
       Profile.hasOne(models.Login)
       Profile.belongsToMany(models.Job , {through:models.ProfileJob})
     }
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     date_birth: DataTypes.DATE,
     email: DataTypes.STRING,
     phone_number: DataTypes.STRING,
-    skill: DataTypes.STRING,
+    skills: DataTypes.STRING,
     month_of_experience: DataTypes.INTEGER,
     year_of_experience: DataTypes.INTEGER,
     last_position: DataTypes.STRING,

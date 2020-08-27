@@ -26,7 +26,7 @@ module.exports = {
       phone_number: {
         type: Sequelize.STRING
       },
-      skill: {
+      skills: {
         type: Sequelize.STRING
       },
       month_of_experience: {

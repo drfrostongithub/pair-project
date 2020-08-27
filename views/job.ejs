@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/jobs/add">Add Job</a>
+    <table border="1">
+        <tr>
+            <td>No.</td>
+            <td>Job</td>
+            <td>Description</td>
+            <td>Action</td>
+        </tr>
+        <%dataFeature.forEach((el,idx)=>{%>
+            <tr>
+                <td><%=idx + 1%></td>
+                <td><%=el.name%></td>
+                <td><%=el.description%></td>
+                <td>
+                    <button><a href="/jobs/<%=el.id%>/edit">Edit</a></button>
+                </td>
+            </tr>
+        <%})%>
+    </table>
+</body>
+</html>

@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <%- include ('./partials/head.ejs')%>
+<body>
+    <form action="/profiles">
+    <label for="experience">Experience</label>
+    <select name="sortexperience" id="experience">
+        <option value="ASC">ASC</option>
+        <option value="DESC">DESC</option>
+    </select>
+    <label for="name">Name</label>
+    <select name="sortname" id="name">
+        <option value="ASC">ASC</option>
+        <option value="DESC">DESC</option>
+    </select>
+    <label for="salary">Salary</label>
+    <select name="sortsalary" id="salary">
+        <option value="ASC">ASC</option>
+        <option value="DESC">DESC</option>
+    </select>
+    <input type="submit" value="Sort">
+    </form>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Profile</th>
+                <th>Nama Awal</th>
+                <th>Nama Akhir</th>
+                <th>Gender</th>
+                <th>Date Birth</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Skills</th>
+                <th>Pengalaman</th>
+                <th>Last Position</th>
+                <th>Last Company</th>
+                <th>Current Salary</th>
+                <th>Expected Salary</th>
+                <th>Availability</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% dataFeature.forEach((elem)=>{%>
+                <tr>
+                    <td><%= elem.image%></td>
+                    <td><%= elem.first_name%></td>
+                    <td><%= elem.last_name%></td>
+                    <td><%= elem.gender%></td>
+                    <td><%= elem.date_birth%></td>
+                    <td><%= elem.email%></td>
+                    <td><%= elem.phone_number%></td>
+                    <td><%= elem.skills%></td>
+                    <td><%= elem.pengalaman%></td>
+                    <td><%= elem.last_position%></td>
+                    <td><%= elem.last_company%></td>
+                    <td><%= elem.current_salary%></td>
+                    <td><%= elem.expected_salary%></td>
+                    <td><%= elem.availability%></td>
+                    <td><%= elem.status%></td>
+                    <td><button><a href="/profiles/<%=elem.id%>/edit">Edit</a></button></td>
+                </tr>
+            <%}) %>
+        </tbody>
+</table>
+<button type="submit" value="Save" style="color: white; background-color: blue;"><a href="/profiles/add">Tambahkan</a></button>
+
+</body>
+
+</html>

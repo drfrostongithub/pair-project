@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Job.hasMany(models.Profile)
+      // Job.hasMany(models.Profile)
       Job.belongsToMany(models.Profile , {through:models.ProfileJob})
     }
   };
