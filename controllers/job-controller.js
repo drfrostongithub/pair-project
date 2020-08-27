@@ -1,6 +1,8 @@
 const {Profile , Login , Job , ProfileJob} = require('../models')
 const session = require('express-session');
 
+const help = require('../helpers/helper.js')
+
 class JobController{
 
     // yang akan menampilkan list Job dengan isTrue = true
@@ -49,8 +51,7 @@ class JobController{
 
         let dataJob = req.body
         // penambahan data yang belum ada di form (isTrue akan dipakai untuk list job yang akan dimunculkan)
-        dataJob.createdAt = new Date()
-        dataJob.updatedAt = new Date()
+        help.newDate(dataJob)
         dataJob.jumlah_pelamar = 0
         dataJob.isTrue = 'true'
 
@@ -158,9 +159,9 @@ class JobController{
             ProfileId : idProfile,
             JobId : data.JobId,
             status : 'On Process',
-            createdAt : new Date(),
-            updatedAt : new Date()
         }
+
+        help.newDate(dataLamaran)
         
 
         ProfileJob.create(dataLamaran)

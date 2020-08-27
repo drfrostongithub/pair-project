@@ -20,7 +20,8 @@
         <option value="DESC">DESC</option>
     </select>
     <input type="submit" value="Sort">
-    <a href="/logout">Logout</a>
+    <a href="/logout">Logout</a> <br>
+    <a href="/jobs">List Jobs</a>
     </form>
     <table border="1">
         <thead>
@@ -61,7 +62,9 @@
                     <td><%= elem.expected_salary%></td>
                     <td><%= elem.availability%></td>
                     <td><%= elem.status%></td>
-                    <td><button><a href="/profiles/<%=elem.id%>/edit">Edit</a></button></td>
+                    <td><button><a href="/profiles/<%=elem.id%>/approve">Approve</a></button>
+                        <button><a href="/profiles/<%=elem.id%>/reject">Reject</a></button>
+                    </td>
                 </tr>
             <%}) %>
         </tbody>

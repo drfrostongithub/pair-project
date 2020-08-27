@@ -1,6 +1,6 @@
 const {Profile , Login , Job , ProfileJob} = require('../models')
 const session = require('express-session');
-
+const help = require('../helpers/helper.js')
 class ProfileController{
 
     //untuk menambahkan Profile
@@ -31,8 +31,7 @@ class ProfileController{
         }
 
         //Penambahan data yang dibutuhkan untuk table Profile
-        dataProfile.createdAt = new Date()
-        dataProfile.updatedAt = new Date()
+        help.newDate(dataProfile)
         dataProfile.status = 'On Process'
         if(!dataProfile.image){
             dataProfile.image = null
@@ -122,9 +121,7 @@ class ProfileController{
                 }
         
                 Profile.findAll({
-                    where:{
-                        status : 'On Process'
-                    },include : [Job],
+                    include : [Job],
                     order:[['first_name' , `${name}`],
                     ['year_of_experience' , `${experience}`],
                     ['month_of_experience' , `${experience}`],
@@ -171,7 +168,41 @@ class ProfileController{
         
     }
 
+    static approve(req , res){
 
+        let id = req.params.id
+
+        Profile.update({status:'Accepted'},{
+            where:{
+                id : id
+            }
+        })
+        .then(data=>{
+            res.redirect('/profiles')
+        })
+        .catch(err=>{
+            res.send(err)
+        })
+        
+    }
+
+    static reject(req , res){
+
+        let id = req.params.id
+
+        Profile.update({status:'Rejected'},{
+            where:{
+                id : id
+            }
+        })
+        .then(data=>{
+            res.redirect('/profiles')
+        })
+        .catch(err=>{
+            res.send(err)
+        })
+        
+    }
 }
 
 module.exports = ProfileController

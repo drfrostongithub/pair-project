@@ -7,10 +7,9 @@
 </head>
 <body>
     <h1><%=username%></h1>
-    <a href="/jobs/<%=data.id%>/lamar">Lamar Job</a>
-
-    <a href="/logout">Logout</a>
-
+    <a href="/logout">Logout</a><br>
+    <a href="/jobs/<%=data.id%>/lamar">Lamar Job</a><br>
+    <a href="/profiles/<%=data.id%>/edit">Edit Profile</a>
     <table>
         <tr>
             <td>No</td>
@@ -21,7 +20,7 @@
             <tr>
                 <td><%=i + 1%></td>
                 <td><%= data.Jobs[i].name%></td>
-                <td><%= data.Jobs[i].ProfileJob.status%></td>
+                <td><%= data.status%></td>
             </tr>
         <%}%>
     </table>
