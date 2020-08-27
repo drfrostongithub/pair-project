@@ -16,8 +16,24 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Job.init({
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Tidak boleh kosong !"
+        }
+      }
+    },
+    description: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Tidak boleh kosong !"
+        }
+      }
+    },
     jumlah_pelamar: DataTypes.INTEGER,
     isTrue: DataTypes.BOOLEAN
   }, {

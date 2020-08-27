@@ -15,8 +15,24 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Login.init({
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
+    username: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Tidak boleh kosong !"
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Tidak boleh kosong !"
+        }
+      }
+    },
     ProfileId: DataTypes.INTEGER,
     isAdmin: DataTypes.BOOLEAN
   }, {
