@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include ('./partials/head.ejs')%>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Nama Awal</th>
+                <th>Nama Akhir</th>
+                <th>Gender</th>
+                <th>Date Birth</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Skills</th>
+                <th>Pengalaman</th>
+                <th>Last Position</th>
+                <th>Last Company</th>
+                <th>Current Salary</th>
+                <th>Expected Salary</th>
+                <th>Availability</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% dataFeature.forEach((elem)=>{%>
+                <tr>
+                    <td><%= elem.nameFirst%></td>
+                    <td><%= elem.nameLast%></td>
+                    <td><%= elem.gender%></td>
+                    <td><%= elem.date_birth%></td>
+                    <td><%= elem.email%></td>
+                    <td><%= elem.phone_number%></td>
+                    <td><%= elem.skills%></td>
+                    <td><%= elem.pengalaman%></td>
+                    <td><%= elem.last_position%></td>
+                    <td><%= elem.last_company%></td>
+                    <td><%= elem.current_salary%></td>
+                    <td><%= elem.expected_salary%></td>
+                    <td>
+                        <select name="<%= elem.availability%>">
+                            <option value="asap">ASAP</option>
+                            <option value="1_month_notice">1 Month Notice</option>
+                            <option value="2_month_notice">2 Month Notice</option>
+                        </select>
+                    </td>
+                    <td><%= elem.status%></td>
+                </tr>
+                <button type="submit" value="Save" style="color: white; background-color: blue;">Tambahkan</button>
+
+            <%}) %>
+        </tbody>
+</table>
+</body>
+
+</html>
