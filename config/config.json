@@ -1,22 +1,8 @@
 {
   "development": {
     "username": "postgres",
-    "password": "12341234",
+    "password": "putra",
     "database": "pairproject_development",
-    "host": "localhost",
-    "dialect": "postgres"
-  },
-  "test": {
-    "username": "postgres",
-    "password": "putra",
-    "database": "pairproject_test",
-    "host": "localhost",
-    "dialect": "postgres"
-  },
-  "production": {
-    "username": "postgres",
-    "password": "putra",
-    "database": "pairproject_production",
     "host": "localhost",
     "dialect": "postgres"
   }
