@@ -95,10 +95,22 @@ class ProfileController{
     }
 
     static listProfile(req , res){
-        let name = req.query.sortname
-        let experience = req.query.sortexperience
-        let salary = req.query.sortsalary
+        let name = req.query.first_name
+        let experience = req.query.experience
+        let salary = req.query.current_salary
         
+        if(!name){
+            name = 'ASC'
+        }
+
+        if(!experience){
+            experience = 'ASC'
+        }
+
+        if(!salary){
+            salary = 'ASC'
+        }
+
         console.log(name)
         Profile.findAll({
             where:{
