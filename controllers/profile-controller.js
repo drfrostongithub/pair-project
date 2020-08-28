@@ -63,7 +63,7 @@ class ProfileController{
             })
         })
             .then(data=>{
-                res.redirect('/profiles')
+                res.redirect('/')
             })
             .catch(err=>{
                 res.send(err)

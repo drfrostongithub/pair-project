@@ -44,30 +44,33 @@
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
-            <% dataFeature.forEach((elem)=>{%>
-                <tr>
-                    <td><%= elem.image%></td>
-                    <td><%= elem.first_name%></td>
-                    <td><%= elem.last_name%></td>
-                    <td><%= elem.gender%></td>
-                    <td><%= elem.date_birth%></td>
-                    <td><%= elem.email%></td>
-                    <td><%= elem.phone_number%></td>
-                    <td><%= elem.skills%></td>
-                    <td><%= elem.pengalaman%></td>
-                    <td><%= elem.last_position%></td>
-                    <td><%= elem.last_company%></td>
-                    <td><%= elem.current_salary%></td>
-                    <td><%= elem.expected_salary%></td>
-                    <td><%= elem.availability%></td>
-                    <td><%= elem.status%></td>
-                    <td><button><a href="/profiles/<%=elem.id%>/approve">Approve</a></button>
-                        <button><a href="/profiles/<%=elem.id%>/reject">Reject</a></button>
-                    </td>
-                </tr>
-            <%}) %>
-        </tbody>
+        <%if(dataFeature){%>
+            <tbody>
+                <% dataFeature.forEach((elem)=>{%>
+                    <tr>
+                        <td><%= elem.image%></td>
+                        <td><%= elem.first_name%></td>
+                        <td><%= elem.last_name%></td>
+                        <td><%= elem.gender%></td>
+                        <td><%= elem.date_birth%></td>
+                        <td><%= elem.email%></td>
+                        <td><%= elem.phone_number%></td>
+                        <td><%= elem.skills%></td>
+                        <td><%= elem.pengalaman%></td>
+                        <td><%= elem.last_position%></td>
+                        <td><%= elem.last_company%></td>
+                        <td><%= elem.current_salary%></td>
+                        <td><%= elem.expected_salary%></td>
+                        <td><%= elem.availability%></td>
+                        <td><%= elem.status%></td>
+                        <td><button><a href="/profiles/<%=elem.id%>/approve">Approve</a></button>
+                            <button><a href="/profiles/<%=elem.id%>/reject">Reject</a></button>
+                        </td>
+                    </tr>
+                <%}) %>
+            </tbody>
+        <%}%>
+        
 </table>
 <button type="submit" value="Save" style="color: white; background-color: blue;"><a href="/profiles/add">Tambahkan</a></button>
 
