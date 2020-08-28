@@ -172,7 +172,6 @@ class ProfileController{
             },include:[ Job ]
         })
         .then(data=>{
-            console.log(data.Jobs[0].ProfileJob)
             res.render('myprofile' , {username:username , data})
         })
         .catch(err=>{

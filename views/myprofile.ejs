@@ -16,13 +16,16 @@
             <td>Nama Job</td>
             <td>Status</td>
         </tr>
-        <%for(let i = 0 ; i < data.Jobs.length ; i++){%>
-            <tr>
-                <td><%=i + 1%></td>
-                <td><%= data.Jobs[i].name%></td>
-                <td><%= data.status%></td>
-            </tr>
-        <%}%>
+        <%if(data.Jobs.length > 0){%>
+            <%for(let i = 0 ; i < data.Jobs.length ; i++){%>
+                <tr>
+                    <td><%=i + 1%></td>
+                    <td><%= data.Jobs[i].name%></td>
+                    <td><%= data.status%></td>
+                </tr>
+            <%}%>
+        <%} %>
+        
     </table>
 
         
