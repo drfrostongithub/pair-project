@@ -1,6 +1,9 @@
 const {Profile , Login , Job , ProfileJob} = require('../models')
 const session = require('express-session');
 const help = require('../helpers/helper.js')
+const bcrypt = require('bcryptjs');
+const login = require('../models/login');
+const saltRounds = 10;
 class ProfileController{
 
     //untuk menambahkan Profile
@@ -14,12 +17,15 @@ class ProfileController{
         //data yang dibutuhkan untuk Profile
         let profile = req.body
         //data yang dibutuhkan untuk Login
+        
+        
+        
         let login = {
             username : profile.username,
-            password : profile.password,
             isAdmin : false
         }
 
+        
         //variable penampung untuk Profile
         let dataProfile = {}
 
@@ -32,31 +38,38 @@ class ProfileController{
 
         //Penambahan data yang dibutuhkan untuk table Profile
         help.newDate(dataProfile)
+
         dataProfile.status = 'On Process'
+
         if(!dataProfile.image){
             dataProfile.image = null
         }
          
-        console.log(dataProfile)
-        console.log(login)
+    
         //Create profile menggunakan data yang sudah ditambahkan
         Profile.create(dataProfile)
             .then(data=>{
 
                 login.ProfileId = data.id
-                console.log(login)
+
                 //Create table login menggunakan data yang sudah ada Profile id
-                return Login.create(login)
+            bcrypt.hash(profile.password , saltRounds , (err , hash)=>{
+                    if(err){
+                        res.send(err)
+                    }else{
+                        login.password = hash
+                        return Login.create(login)
+                    }   
             })
+        })
             .then(data=>{
-                
                 res.redirect('/profiles')
             })
             .catch(err=>{
                 res.send(err)
             })
-    }
 
+    }
 
     // Mengambil data Profile yang akan di edit
     static getEditProfile(req , res){

@@ -1,6 +1,5 @@
 'use strict';
-const bcrypt = require('bcryptjs')
-const saltRounds = 10;
+
 const {
   Model
 } = require('sequelize');
@@ -39,16 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     isAdmin: DataTypes.BOOLEAN
   }, {
     sequelize,
-    modelName: 'Login',
-    hooks:{
-      beforeCreate(instance , options){
-        console.log('before create')
-        const hashPassword = bcrypt.hash(instance.password , saltRounds)
-
-        instance.password = hashPassword
-
-      }
-    }
+    modelName: 'Login'
   });
   return Login;
 };
